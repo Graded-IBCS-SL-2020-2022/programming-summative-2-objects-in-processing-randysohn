@@ -2,9 +2,10 @@
 class Ball {
     private Sketch s;
     private float diameter;
-    private float x;
-    private float y;
+    public float x;
+    public float y;
     private int col;
+    private int borderColor;
     private float speedY;
     private float speedX;
 
@@ -17,27 +18,46 @@ class Ball {
         diameter = s.random(50, 150); // random diameter between 50 and 150
         x = s.random(diameter / 2, s.width - diameter / 2);
         y = s.random(diameter / 2, s.height - diameter / 2);
+        borderColor = 255;
 
         /*
          * SUMMATIVE REQUIRED use the randomColor() method in the sketch to set default
          * balls to a solid random color
          */
+         
+         col = s.randomColor(true);
 
         /*
          * SUMMATIVE REQUIRED Set speedX and speedY to reasonable defaults. Random
          * numbers could be nice, but are not required.
          */
+         speedX = s.random(2, 5);
+         speedY = s.random(2, 5);
+
     }
 
     /** This constructor lets you specify all of the ball instance variables */
-    public Ball(Sketch s, float X, float Y, float ballDiam, int ballColor, float sx, float sy) {
+    public Ball(Sketch S, float X, float Y, float ballDiam, int ballColor, float sx, float sy) {
         /* SUMMATIVE REQUIRED Fill out this constructor */
+          s = S;
+          x = X;
+          y = Y;
+          diameter = ballDiam;
+          col = ballColor;
+          borderColor = 255;
+          speedX = sx;
+          speedY = sy;
+
     }
 
     /*
      * SUMMATIVE REQUIRED Add a method called `getRadius()` that returns a float
      * representing the radius of the ball
      */
+     public float getRadius() {
+        return (diameter/2);
+     }
+     
 
     /*
      * SUMMATIVE OPTIONAL Add a method called `stop()` that sets the ball speed to
@@ -46,6 +66,20 @@ class Ball {
      * 
      * If you create the methods, you'll need to think of a way to test them...
      */
+     public void stop(){
+       speedX = 0;
+       speedY = 0;
+
+     }
+
+     public void start() {
+       speedX = s.random(3, 6);
+       speedY = s.random(1, 5);
+
+     }
+
+
+
 
     /** Draws the ball. */
     public void drawBall() {
@@ -54,8 +88,9 @@ class Ball {
          * as well as the fill color. Change the `sketch.stroke(col)` line below to use
          * the border color to make it show up. You will need to make other changes too.
          */
+        
 
-        s.stroke(col);
+        s.stroke(borderColor);
         s.fill(col);
         s.ellipse(x, y, diameter, diameter);
     }
